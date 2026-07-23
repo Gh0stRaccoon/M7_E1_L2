@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Crea un nuevo cliente</h1>
+    <form id="formulario">
+        <input id="name" type="text">
+        <input id="rut" type="text">
+        <input id="edad" type="text">
+
+        <button>Enviar</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("formulario")
+        const nombreCliente = document.getElementById("name")
+        const rutCliente = document.getElementById("rut")
+        const edadCliente = document.getElementById("edad")
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault()
+
+            const cliente = {
+                nombre: nombreCliente.value,
+                rut: rutCliente.value,
+                edad: edadCliente.value
+            }
+
+            const result = await fetch("http://localhost:3000/clientes", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(cliente)
+            })
+
+            const resultJson = await result.json()
+            
+            console.log(resultJson)
+        })
+
+    </script>
+</body>
+
+</html>
